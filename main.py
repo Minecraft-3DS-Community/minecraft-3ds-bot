@@ -35,7 +35,7 @@ async def online(ctx):
     await ctx.send("https://cdn.discordapp.com/attachments/821470210992504832/1005981335208345671/IMG_2959.png")
 
 @bot.command(name='megapackdocs')
-async def online(ctx):
+async def megapackdocs(ctx):
     await ctx.send("https://wyndchyme.github.io/mc3ds-modern/")
 
 @bot.command(name='megapack')
@@ -43,7 +43,7 @@ async def megapack(ctx):
     await ctx.send("https://github.com/wyndchyme/mc3ds-modern")
 
 @bot.command(name='website')
-async def megapack(ctx):
+async def website(ctx):
     await ctx.send("https://www.minecraft3ds.org/")
 
 @bot.command(name='unistore')
