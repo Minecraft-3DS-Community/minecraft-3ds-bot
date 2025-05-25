@@ -38,6 +38,8 @@ async def online(ctx):
 async def megapackdocs(ctx):
     await ctx.send("https://wyndchyme.github.io/mc3ds-modern/")
 
+
+# probably change this to a "repo" or smth
 @bot.command(name='megapack')
 async def megapack(ctx):
     await ctx.send("https://github.com/wyndchyme/mc3ds-modern")
