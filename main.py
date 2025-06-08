@@ -33,7 +33,6 @@ git_repos = {
     "3dschunker": "https://github.com/MC3DS-Save-Research/3DS-Chunker",
     "unistore": "https://github.com/Minecraft-3DS-Community/minecraft-3ds-unistore",
     "ipspatchtool": "https://github.com/Minecraft-3DS-Community/IPS-Patch-Tool",
-    "wiki": "https://github.com/Minecraft-3DS-Community/Minecraft3DS-Wiki",
     "website": "https://github.com/Minecraft-3DS-Community/Minecraft-3DS-Community.github.io",
     "mobvariations": "https://github.com/pizza-beep/MC3DS-mob-variations",
     "mpseedpicker": "https://github.com/pizza-beep/MegaPack-seed-picker",
