@@ -13,7 +13,7 @@ import dotenv
 dotenv.load_dotenv()
 
 TOKEN = os.getenv("TOKEN")
-GUILD = 821298578713477140
+GUILD = int(os.getenv("GUILD"))
 ADMIN_ID = int(os.getenv("ADMIN_ID"))
 
 intents = discord.Intents.default()
