@@ -7,12 +7,14 @@ from py3dst import Texture3dst
 from io import BytesIO
 import tempfile
 import os
+import dotenv
 
 
-# change this to use .env soon tm
-TOKEN = "token"
-GUILD = "guild id"
-ADMIN_ID = 968672493185413171
+dotenv.load_dotenv()
+
+TOKEN = os.getenv("TOKEN")
+GUILD = 821298578713477140
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -47,7 +49,7 @@ git_repos = {
     "bjsoneditor": "https://github.com/STBrian/MC3DS-BJSON-Editor",
     "lunacore": "https://github.com/STBrian/LunaCore",
     "bot": "https://github.com/TheProgrammer1337/minecraft-3ds-bot",
-    "megapack": "https://github.com/wyndchyme/mc3ds-modern",
+    "megapack": "https://github.com/wyndchyme/mc3ds-modern"
 }
 
 @bot.event
