@@ -8,7 +8,7 @@ from io import BytesIO
 import tempfile
 import os
 import dotenv
-
+import json
 
 dotenv.load_dotenv()
 
@@ -20,39 +20,11 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='-', intents=intents)
-git_repos = {
-    "shader": "https://github.com/ENDERMANYK/Minecraft-3ds-shader",
-    "felsker": "https://github.com/pizza-beep/Felsker",
-    "mpplugin": "https://github.com/Cracko298/megapackPlugin",
-    "ironbrute": "https://github.com/Cracko298/MC3DS-IronBrute",
-    "mc3dsdecomp": "https://github.com/Cracko298/mc3ds-decomp",
-    "animationsuite": "https://github.com/Cracko298/MC3DS-AnimationSuite",
-    "modeleditor": "https://github.com/Cracko298/MC3DS-Model-Editor",
-    "catool": "https://github.com/Cracko298/CombinedAudioTool",
-    "worldmanager": "https://github.com/Cracko298/MC3DS-WorldManager",
-    "rtxshader": "https://github.com/Cracko298/Minecraft3DS-RTX-Shader",
-    "luma": "https://github.com/LumaTeam/Luma3DS?tab=readme-ov-file#installation-and-upgrade",
-    "3dschunker": "https://github.com/MC3DS-Save-Research/3DS-Chunker",
-    "unistore": "https://github.com/Minecraft-3DS-Community/minecraft-3ds-unistore",
-    "ipspatchtool": "https://github.com/Minecraft-3DS-Community/IPS-Patch-Tool",
-    "website": "https://github.com/Minecraft-3DS-Community/Minecraft-3DS-Community.github.io",
-    "gamepatches": "https://github.com/Minecraft-3DS-Community/GamePatches",
-    "mobvariations": "https://github.com/pizza-beep/MC3DS-mob-variations",
-    "mpseedpicker": "https://github.com/pizza-beep/MegaPack-seed-picker",
-    "mppluginalt": "https://github.com/pizza-beep/Megapack-plugin-alternative",
-    "3dstconverter": "https://github.com/pizza-beep/GUI-3dst-Converter",
-    "mc3dsgrimes": "https://github.com/sewene/mc3ds-grimes",
-    "stbunistore": "https://github.com/STBrian/stb-mc3ds-unistore",
-    "texturemaker": "https://github.com/STBrian/mc3ds-texture-maker",
-    "py3dst": "https://github.com/STBrian/py3dst",
-    "pybjson": "https://github.com/STBrian/pyBjson",
-    "blangeditor": "https://github.com/STBrian/MC3DS-Blang-Editor",
-    "bjsoneditor": "https://github.com/STBrian/MC3DS-BJSON-Editor",
-    "lunacore": "https://github.com/STBrian/LunaCore",
-    "bot": "https://github.com/TheProgrammer1337/minecraft-3ds-bot",
-    "megapack": "https://github.com/wyndchyme/mc3ds-modern"
-}
 
+# load git_repos from a .json instead
+with open("data/repos.json", "r", encoding="utf-8") as f:
+    git_repos = json.load(f)
+    
 @bot.event
 async def on_ready():
     await bot.tree.sync(guild=discord.Object(id=GUILD))
@@ -60,37 +32,6 @@ async def on_ready():
     # remove default discord slop
     bot.remove_command("help")
     print("Connected!")
-
-@bot.event
-async def on_message(ctx):
-    
-    # auto convert *.bmp to *.png and send it
-    png_files = []
-    if ctx.attachments:
-        for attachment in ctx.attachments:
-            if attachment.filename.lower().endswith('.bmp'):
-                try:
-                    img_bytes = await attachment.read()
-                    bmp_buffer = BytesIO(img_bytes)
-                    img = Image.open(bmp_buffer)
-
-                    png_buffer = BytesIO()
-                    img.save(png_buffer, format="PNG")
-                    png_buffer.seek(0)
-
-                    png_files.append(
-                        discord.File(
-                            png_buffer,
-                            filename=attachment.filename.rsplit('.', 1)[0] + ".png"
-                        )
-                    )
-                except Exception as e:
-                    await print(f"Failed to convert {attachment.filename} to PNG {e}")
-
-        if png_files:
-            await ctx.channel.send(files=png_files)
-
-    await bot.process_commands(ctx)
 
 @bot.command(name='repo')
 async def repo(ctx, repo_name: str = None):
@@ -220,5 +161,36 @@ async def convert3dst(interaction: discord.Interaction, file: discord.Attachment
         os.remove("temp.3dst")
     except Exception as e:
         print(f"Failed to convert image: {e}")
+
+@bot.event
+async def on_message(ctx):
+    
+    # auto convert *.bmp to *.png and send it
+    png_files = []
+    if ctx.attachments:
+        for attachment in ctx.attachments:
+            if attachment.filename.lower().endswith('.bmp'):
+                try:
+                    img_bytes = await attachment.read()
+                    bmp_buffer = BytesIO(img_bytes)
+                    img = Image.open(bmp_buffer)
+
+                    png_buffer = BytesIO()
+                    img.save(png_buffer, format="PNG")
+                    png_buffer.seek(0)
+
+                    png_files.append(
+                        discord.File(
+                            png_buffer,
+                            filename=attachment.filename.rsplit('.', 1)[0] + ".png"
+                        )
+                    )
+                except Exception as e:
+                    await print(f"Failed to convert {attachment.filename} to PNG {e}")
+
+        if png_files:
+            await ctx.channel.send(files=png_files)
+
+    await bot.process_commands(ctx)
 
 bot.run(TOKEN)
