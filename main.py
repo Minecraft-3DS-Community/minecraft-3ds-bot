@@ -36,6 +36,7 @@ git_repos = {
     "unistore": "https://github.com/Minecraft-3DS-Community/minecraft-3ds-unistore",
     "ipspatchtool": "https://github.com/Minecraft-3DS-Community/IPS-Patch-Tool",
     "website": "https://github.com/Minecraft-3DS-Community/Minecraft-3DS-Community.github.io",
+    "gamepatches": "https://github.com/Minecraft-3DS-Community/GamePatches",
     "mobvariations": "https://github.com/pizza-beep/MC3DS-mob-variations",
     "mpseedpicker": "https://github.com/pizza-beep/MegaPack-seed-picker",
     "mppluginalt": "https://github.com/pizza-beep/Megapack-plugin-alternative",
