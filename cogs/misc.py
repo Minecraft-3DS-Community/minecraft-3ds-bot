@@ -3,6 +3,9 @@ from discord.ext import commands
 from discord import app_commands
 import os
 
+# im too lazy to properly define this so whatever
+GUH_ID = 1325357955016818688
+
 class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -20,6 +23,13 @@ class Misc(commands.Cog):
     @commands.command(name='ping')
     async def ping(self, ctx):
         await ctx.send('Pong! {0}ms'.format(round(self.bot.latency * 1000, 1)))
+        
+    @commands.command(name='guh')
+    async def ping(self, ctx):
+        GUH = self.bot.get_emoji(GUH_ID)
+        await ctx.add_reaction(GUH)
+        
+    # command tree commands
 
     @app_commands.command(
         name="terminate",

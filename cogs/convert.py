@@ -14,37 +14,6 @@ class Convert(commands.Cog):
         self.bot.tree.add_command(self.convert3dst, guild=discord.Object(id=self.bot.GUILD))
         self.bot.tree.add_command(self.reverse3dst, guild=discord.Object(id=self.bot.GUILD))
 
-    @commands.Cog.listener()
-    async def on_message(self, ctx):
-        png_files = []
-        if ctx.attachments:
-            for attachment in ctx.attachments:
-                if attachment.filename.lower().endswith('.bmp'):
-                    try:
-                        img_bytes = await attachment.read()
-                        bmp_buffer = BytesIO(img_bytes)
-                        img = Image.open(bmp_buffer)
-
-                        png_buffer = BytesIO()
-                        img.save(png_buffer, format="PNG")
-                        png_buffer.seek(0)
-
-                        png_files.append(
-                            discord.File(
-                                png_buffer,
-                                filename=attachment.filename.rsplit('.', 1)[0] + ".png"
-                            )
-                        )
-                    except Exception as e:
-                        await print(f"Failed to convert {attachment.filename} to PNG {e}")
-
-            if png_files:
-                await ctx.channel.send(files=png_files)
-
-        # await self.bot.process_commands(ctx)
-        
-        pass
-
     # commands:
     
     @app_commands.command(
