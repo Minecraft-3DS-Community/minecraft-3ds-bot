@@ -27,7 +27,7 @@ class Misc(commands.Cog):
     @commands.command(name='guh')
     async def ping(self, ctx):
         GUH = self.bot.get_emoji(GUH_ID)
-        await ctx.add_reaction(GUH)
+        await ctx.message.add_reaction(GUH)
         
     # command tree commands
 
