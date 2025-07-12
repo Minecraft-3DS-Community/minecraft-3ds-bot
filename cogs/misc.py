@@ -29,6 +29,15 @@ class Misc(commands.Cog):
         GUH = self.bot.get_emoji(GUH_ID)
         await ctx.message.add_reaction(GUH)
         
+    @commands.command(name='titleid')
+    async def titleid(self, ctx):
+        embed = discord.Embed(
+            title="MC3DS TitleIDs",
+            description="USA - `00040000001B8700`\nEUR - `000400000017CA00`\nJPN - `000400000017FD00`",
+            color=discord.Color.blue(),
+        )        
+        await ctx.send(embed=embed)
+    
     # command tree commands
 
     @app_commands.command(
