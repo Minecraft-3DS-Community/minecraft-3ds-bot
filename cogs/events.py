@@ -43,7 +43,8 @@ class Events(commands.Cog):
                         await print(f"Failed to convert {attachment.filename} to PNG {e}")
 
             if png_files:
-                await ctx.channel.send(files=png_files)
+                await ctx.reply(files=png_files, mention_author=False)
+                
 
         # await self.bot.process_commands(ctx)
         

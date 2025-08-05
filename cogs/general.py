@@ -35,7 +35,11 @@ class General(commands.Cog):
             color=discord.Color.blue()
         )
         
-        await ctx.send(embed=embed)
+        if ctx.message.reference:
+            message = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+            await message.reply(embed=embed, mention_author=True)
+        else:
+             await ctx.send(embed=embed)
 
     @commands.command(name='cstick')
     async def cstick(self, ctx):
@@ -46,7 +50,11 @@ class General(commands.Cog):
         )
         embed.set_footer(text="Open Rosalina menu by pressing L + ↓ + Select.")
         
-        await ctx.send(embed=embed)
+        if ctx.message.reference:
+            message = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+            await message.reply(embed=embed, mention_author=True)
+        else:
+             await ctx.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(General(bot))
