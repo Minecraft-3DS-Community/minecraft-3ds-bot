@@ -24,6 +24,10 @@ class Misc(commands.Cog):
     async def ping(self, ctx):
         await ctx.send('Pong! {0}ms'.format(round(self.bot.latency * 1000, 1)))
         
+    @commands.command(name='pong')
+    async def pong(self, ctx):
+        await ctx.send('Ping!')
+
     @commands.command(name='guh')
     async def guh(self, ctx):
         GUH = self.bot.get_emoji(GUH_ID)
