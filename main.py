@@ -15,7 +15,7 @@ ADMIN_ID = int(os.getenv("ADMIN_ID"))
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix='-', intents=intents)
+bot = commands.Bot(command_prefix='-', intents=intents, case_insensitive=True)
 
 bot.GUILD = GUILD
 bot.ADMIN_ID = ADMIN_ID
