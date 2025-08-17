@@ -6,11 +6,11 @@ import json
 with open("data/repos.json", "r", encoding="utf-8") as f:
     git_repos = json.load(f)
 
-class General(commands.Cog):
+class MC3DS(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='repo')
+    @commands.command(name='repo', help="Returns the queried repo's link or a list of available repos if none is specified.")
     async def repo(self, ctx, repo_name: str = None):
         if not repo_name:
             embed = discord.Embed(
@@ -27,7 +27,7 @@ class General(commands.Cog):
         else:
             await ctx.send(f"\"{repo_name}\" not found.")
 
-    @commands.command(name='unistore')
+    @commands.command(name='unistore', help="Info and instructions on installing the Minecraft 3DS Unistore.")
     async def unistore(self, ctx):
         embed = discord.Embed(
             title="Minecraft 3DS Unistore",
@@ -41,7 +41,7 @@ class General(commands.Cog):
         else:
              await ctx.send(embed=embed)
 
-    @commands.command(name='cstick')
+    @commands.command(name='cstick', help="Fix instructions for C-Stick issues caused by plugins.")
     async def cstick(self, ctx):
         embed = discord.Embed(
             title="C-Stick",
@@ -56,5 +56,14 @@ class General(commands.Cog):
         else:
              await ctx.send(embed=embed)
 
+    @commands.command(name='titleid', help="List of MC3DS' TitleIDs.")
+    async def titleid(self, ctx):
+        embed = discord.Embed(
+            title="MC3DS TitleIDs",
+            description="USA - `00040000001B8700`\nEUR - `000400000017CA00`\nJPN - `000400000017FD00`",
+            color=discord.Color.blue(),
+        )        
+        await ctx.send(embed=embed)
+
 async def setup(bot):
-    await bot.add_cog(General(bot))
+    await bot.add_cog(MC3DS(bot))

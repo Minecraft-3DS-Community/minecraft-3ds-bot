@@ -10,17 +10,16 @@ class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.bot.tree.add_command(self.terminate, guild=discord.Object(id=self.bot.GUILD))
-        self.bot.tree.add_command(self.sync, guild=discord.Object(id=self.bot.GUILD))
     
     @commands.command(name='online')
     async def online(self, ctx):
         await ctx.send("https://cdn.discordapp.com/attachments/821470210992504832/1005981335208345671/IMG_2959.png")
 
-    @commands.command(name='website')
+    @commands.command(name='website', help="Official Minecraft 3DS Community website link.")
     async def website(self, ctx):
         await ctx.send("https://www.minecraft3ds.org/")
-        
-    @commands.command(name='ping')
+
+    @commands.command(name='ping', help="Checks MC3DS Bot's latency in ms.")
     async def ping(self, ctx):
         await ctx.send('Pong! {0}ms'.format(round(self.bot.latency * 1000, 1)))
         
@@ -28,19 +27,10 @@ class Misc(commands.Cog):
     async def pong(self, ctx):
         await ctx.send('Ping!')
 
-    @commands.command(name='guh')
+    @commands.command(name='guh', help=":guh:")
     async def guh(self, ctx):
         GUH = self.bot.get_emoji(GUH_ID)
         await ctx.message.add_reaction(GUH)
-        
-    @commands.command(name='titleid')
-    async def titleid(self, ctx):
-        embed = discord.Embed(
-            title="MC3DS TitleIDs",
-            description="USA - `00040000001B8700`\nEUR - `000400000017CA00`\nJPN - `000400000017FD00`",
-            color=discord.Color.blue(),
-        )        
-        await ctx.send(embed=embed)
     
     # command tree commands
 
@@ -54,19 +44,6 @@ class Misc(commands.Cog):
             await self.bot.close()
         else:
             await interaction.response.send_message("No.", ephemeral=True)
-            
-    @app_commands.command(
-        name="sync",
-        description="Syncs the command tree",
-    )
-    async def sync(self, interaction: discord.Interaction):
-        if interaction.user.id == self.bot.ADMIN_ID:
-            await interaction.response.send_message("Syncing...", ephemeral=True)
-            await self.bot.tree.sync()
-        else:
-            await interaction.response.send_message("No.", ephemeral=True)
-
-    
 
 async def setup(bot):
     await bot.add_cog(Misc(bot))

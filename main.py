@@ -5,6 +5,7 @@ from discord.ext import commands
 import os
 import dotenv
 import asyncio
+import help
 
 dotenv.load_dotenv()
 
@@ -16,6 +17,9 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='-', intents=intents, case_insensitive=True)
+
+bot.help_command = help.CustomHelp()
+bot.get_cog = help.get_cog_case_insensitive.__get__(bot)
 
 bot.GUILD = GUILD
 bot.ADMIN_ID = ADMIN_ID
@@ -29,9 +33,6 @@ async def load_cogs():
 async def on_ready():
     await bot.tree.sync(guild=discord.Object(id=GUILD))
     await bot.change_presence(activity=discord.Game(name="Minecraft: New Nintendo 3DS Edition")) # :absoluteconclave:
-    
-    # remove default discord help command
-    bot.remove_command("help")
     print("Connected!")
 
 asyncio.run(load_cogs())
