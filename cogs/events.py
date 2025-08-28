@@ -2,10 +2,11 @@ import discord
 from discord.ext import commands
 from PIL import Image
 from io import BytesIO
-
+from discord.utils import get
 
 GUH_ID = 1325357955016818688
 JOIN_LEAVE_ID = 821298578713477142
+CLANKERBAIT_ID = 1327124480300154910
 
 class Events(commands.Cog):
     def __init__(self, bot):
@@ -17,8 +18,17 @@ class Events(commands.Cog):
         GUH = self.bot.get_emoji(GUH_ID)
         if ctx.channel.id == JOIN_LEAVE_ID:
             await ctx.add_reaction(GUH)
-            
-            
+        
+        # clankerbait 
+        if ctx.channel.id == CLANKERBAIT_ID:
+            role = get(ctx.author.roles, name='Staff Team')
+            if role:
+                return
+                
+            await ctx.author.kick(reason="Sent a message in #clanker-bait")
+            await ctx.delete()
+            print(f"Kicked {ctx.author} for sending a message in #clanker-bait")
+
         # handle bmp to png conversion
         png_files = []
         if ctx.attachments:
