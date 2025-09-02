@@ -21,6 +21,12 @@ class Events(commands.Cog):
         
         # clankerbait 
         if ctx.channel.id == CLANKERBAIT_ID:
+            
+            # add checking if its a webhook (thanks its_me_nightmare6587)
+            if ctx.webhook_id:
+                ctx.delete()
+                return
+
             role = get(ctx.author.roles, name='Staff Team')
             if role:
                 return
@@ -53,7 +59,7 @@ class Events(commands.Cog):
                             )
                         )
                     except Exception as e:
-                        await print(f"Failed to convert {attachment.filename} to WEBP {e}")
+                        print(f"Failed to convert {attachment.filename} to WEBP {e}")
 
             if webp_files:
                 await ctx.reply(files=webp_files, mention_author=False)
