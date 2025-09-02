@@ -24,13 +24,16 @@ class Events(commands.Cog):
             role = get(ctx.author.roles, name='Staff Team')
             if role:
                 return
+            
+            if ctx.author.id == self.bot.ADMIN_ID:
+                return
                 
             await ctx.author.kick(reason="Sent a message in #clanker-bait")
             await ctx.delete()
             print(f"Kicked {ctx.author} for sending a message in #clanker-bait")
 
-        # handle bmp to png conversion
-        png_files = []
+        # handle bmp to webp conversion
+        webp_files = []
         if ctx.attachments:
             for attachment in ctx.attachments:
                 if attachment.filename.lower().endswith('.bmp'):
@@ -39,22 +42,22 @@ class Events(commands.Cog):
                         bmp_buffer = BytesIO(img_bytes)
                         img = Image.open(bmp_buffer)
 
-                        png_buffer = BytesIO()
-                        img.save(png_buffer, format="PNG")
-                        png_buffer.seek(0)
+                        webp_buffer = BytesIO()
+                        img.save(webp_buffer, format="WEBP", lossless=True)
+                        webp_buffer.seek(0)
 
-                        png_files.append(
+                        webp_files.append(
                             discord.File(
-                                png_buffer,
-                                filename=attachment.filename.rsplit('.', 1)[0] + ".png"
+                                webp_buffer,
+                                filename=attachment.filename.rsplit('.', 1)[0] + ".webp"
                             )
                         )
                     except Exception as e:
-                        await print(f"Failed to convert {attachment.filename} to PNG {e}")
+                        await print(f"Failed to convert {attachment.filename} to WEBP {e}")
 
-            if png_files:
-                await ctx.reply(files=png_files, mention_author=False)
-                
+            if webp_files:
+                await ctx.reply(files=webp_files, mention_author=False)
+
 
         # await self.bot.process_commands(ctx)
         
