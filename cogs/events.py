@@ -23,7 +23,7 @@ class Events(commands.Cog):
         if ctx.channel.id == CLANKERBAIT_ID:
             
             # add checking if its a webhook (thanks its_me_nightmare6587)
-            if ctx.webhook_id:
+            if ctx.webhook_id or ctx.author.bot:
                 ctx.delete()
                 return
 
