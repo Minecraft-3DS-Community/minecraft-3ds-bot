@@ -24,7 +24,7 @@ class Events(commands.Cog):
             
             # add checking if its a webhook (thanks its_me_nightmare6587)
             if ctx.webhook_id or ctx.author.bot:
-                ctx.delete()
+                await ctx.delete()
                 return
 
             role = get(ctx.author.roles, name='Staff Team')
