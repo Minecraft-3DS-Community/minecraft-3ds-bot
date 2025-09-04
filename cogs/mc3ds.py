@@ -11,7 +11,7 @@ class MC3DS(commands.Cog):
         self.bot = bot
 
     @commands.command(name='repo', help="Returns the queried repo's link or a list of available repos if none is specified.")
-    async def repo(self, ctx, repo_name: str = None):
+    async def repo(self, ctx, repo_name: str):
         if not repo_name:
             embed = discord.Embed(
                 title="Available Repositories",

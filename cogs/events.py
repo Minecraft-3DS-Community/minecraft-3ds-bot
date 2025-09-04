@@ -13,6 +13,18 @@ class Events(commands.Cog):
         self.bot = bot
         
     @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        channel = self.bot.get_channel(JOIN_LEAVE_ID)
+        if channel:
+            await channel.send(f"**{member.name}** has left the server.")
+            
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        channel = self.bot.get_channel(JOIN_LEAVE_ID)
+        if channel:
+            await channel.send(f"<@{member.id}>, welcome to the **Minecraft 3DS Community** Discord!\nMake sure to read the <#821299116176310282> before chatting and if you're here to install custom worlds, check <#1256685850314539092>!")
+
+    @commands.Cog.listener()
     async def on_message(self, ctx):
         # :guh: reaction
         GUH = self.bot.get_emoji(GUH_ID)
