@@ -11,7 +11,7 @@ class Levels(commands.Cog):
         self.last_xp_time = {}
         self.data_file = "./data/volatile/levels.json"
         self.user_data = {}
-        self.bots_channel_id = 821298578713477142
+        self.bots_channel_id = 821305236467220490
         self.load_data()
 
     def load_data(self):
