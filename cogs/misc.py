@@ -13,6 +13,7 @@ class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.bot.tree.add_command(self.terminate, guild=discord.Object(id=self.bot.GUILD))
+        self.bot.tree.add_command(self.simple_embed, guild=discord.Object(id=self.bot.GUILD))
 
     @commands.command(name='rank', help="Displays the user's rank card.")
     async def rank(self, ctx):
@@ -81,6 +82,16 @@ class Misc(commands.Cog):
             await self.bot.close()
         else:
             await interaction.response.send_message("No.", ephemeral=True)
+
+    @app_commands.command(name="simple-embed", description="Send a simple embed (Just title and description)")
+    @app_commands.checks.has_role('Staff Team')
+    async def simple_embed(self, interaction: discord.Interaction, title: str, description: str):
+        embed = discord.Embed(
+            title=title,
+            description=description,
+            color=discord.Color.dark_green()
+        )
+        await interaction.channel.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(Misc(bot))
