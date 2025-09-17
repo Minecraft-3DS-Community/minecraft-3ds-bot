@@ -85,6 +85,7 @@ class Misc(commands.Cog):
 
     @app_commands.command(name="simple-embed", description="Send a simple embed (Just title and description)")
     @app_commands.checks.has_role('Staff Team')
+    @app_commands.default_permissions(manage_roles=True)
     async def simple_embed(self, interaction: discord.Interaction, title: str, description: str):
         embed = discord.Embed(
             title=title,
