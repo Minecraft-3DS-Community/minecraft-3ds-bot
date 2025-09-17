@@ -25,6 +25,7 @@ class ReactionRoles(commands.Cog):
     @app_commands.command(name="setupreaction", description="Set up reaction role for a message")
     @app_commands.describe(message_id="Message ID", emoji="Emoji", role="Role")
     @app_commands.checks.has_role('Staff Team')
+    @app_commands.default_permissions(manage_roles=True)
     async def setupreaction(self, interaction: discord.Interaction, message_id: str, emoji: str, role: discord.Role):
         msg_id = str(message_id)
         emoji_obj = discord.PartialEmoji.from_str(emoji)
