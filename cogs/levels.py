@@ -44,15 +44,16 @@ class Levels(commands.Cog):
         if not last_time or now - last_time >= timedelta(minutes=1):
             xp_gain = random.randint(15, 25)
             self.last_xp_time[user_id] = now
+            if self.get_user_entry(user_id)['level'] >= 5:
+                # add "Level 5+" role to user if they dont have it
+                member = await bots_channel.guild.fetch_member(user_id)
+                role = discord.utils.get(bots_channel.guild.roles, name="Level 5+")
+                if  role not in member.roles:
+                    await member.add_roles(role)
+                    print(f"Added Level 5+ role to {member.name}")
+                    
             if self.add_xp(user_id, xp_gain):
                 await bots_channel.send(f"Congratulations <@{user_id}>, you are now at level {self.get_user_entry(user_id)['level']}!")
-                if self.get_user_entry(user_id)['level'] >= 5:
-                    # add "Level 5+" role to user if they dont have it
-                    member = bots_channel.guild.get_member(user_id)
-                    role = discord.utils.get(bots_channel.guild.roles, name="Level 5+")
-                    if member and role and role not in member.roles:
-                        await member.add_roles(role)
-
     def add_xp(self, user_id, xp_gain):
         leveled_up = None
         user = self.get_user_entry(user_id)
