@@ -29,7 +29,20 @@ class Levels(commands.Cog):
 
 
     def get_user_entry(self, user_id):
-        return self.user_data.get(user_id)
+        if user_id not in self.user_data:
+            # init new user entry
+            self.user_data[user_id] = {
+                "id": user_id,
+                "xp": {
+                    "userXp": 0,
+                    "levelXp": 100,
+                    "totalXp": 0
+                },
+                "level": 1        
+                }
+            self.save_data()
+        return self.user_data[user_id]
+
 
     @commands.Cog.listener()
     async def on_message(self, ctx):
@@ -51,24 +64,13 @@ class Levels(commands.Cog):
                 if  role not in member.roles:
                     await member.add_roles(role)
                     print(f"Added Level 5+ role to {member.name}")
-                    
+
             if self.add_xp(user_id, xp_gain):
                 await bots_channel.send(f"Congratulations <@{user_id}>, you are now at level {self.get_user_entry(user_id)['level']}!")
+
     def add_xp(self, user_id, xp_gain):
         leveled_up = None
         user = self.get_user_entry(user_id)
-
-        if not user:
-            user = {
-                "id": user_id,
-                "xp": {
-                    "userXp": 0,
-                    "levelXp": 100,
-                    "totalXp": 0
-                },
-                "level": 1
-            }
-            self.user_data[user_id] = user
 
         user["xp"]["userXp"] += xp_gain
         user["xp"]["totalXp"] += xp_gain

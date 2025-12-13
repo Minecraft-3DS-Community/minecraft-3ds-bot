@@ -36,7 +36,7 @@ class Misc(commands.Cog):
         if not user_entry:
             return
 
-        username = target.global_name
+        username = target.name
         level = user_entry["level"]
         current_xp = user_entry["xp"]["userXp"]
         required_xp = user_entry["xp"]["levelXp"]
