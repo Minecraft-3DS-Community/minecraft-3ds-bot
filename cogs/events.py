@@ -46,9 +46,12 @@ class Events(commands.Cog):
             if ctx.author.id == self.bot.ADMIN_ID:
                 return
                 
-            await ctx.author.kick(reason="Sent a message in #clanker-bait")
-            await ctx.delete()
-            print(f"Kicked {ctx.author} for sending a message in #clanker-bait")
+            if "@here" or "@everyone" or "|" in ctx.message.content:
+                ctx.author.ban(reason="Sent a scam message in #clanker-bait", delete_message_seconds=3600)
+            else:
+                await ctx.author.kick(reason="Sent a message in #clanker-bait")
+                await ctx.delete
+                print(f"Kicked {ctx.author} for sending a message in #clanker-bait")
 
         # handle bmp to webp conversion
         webp_files = []
