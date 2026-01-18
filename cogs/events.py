@@ -47,7 +47,7 @@ class Events(commands.Cog):
                 return
                 
             if "@here" or "@everyone" or "|" in ctx.message.content:
-                ctx.author.ban(reason="Sent a scam message in #clanker-bait", delete_message_seconds=3600)
+                await ctx.author.ban(reason="Sent a scam message in #clanker-bait", delete_message_seconds=3600)
             else:
                 await ctx.author.kick(reason="Sent a message in #clanker-bait")
                 await ctx.delete
